@@ -1,0 +1,90 @@
+<link rel="import" href="../vendor/polymer.html">
+
+<polymer-element name="inf-dialog" attributes="text">
+  <template>
+    <style>
+      :host {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+      }
+      :host(.opened) {
+        display: -webkit-box;
+      }
+      :host .container {
+        background-color: #eee;
+        border-radius: 8px;
+        min-width: 200px;
+        min-height: 150px;
+        padding: 10px;
+        position: relative;
+      }
+      :host .content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 24px;
+        bottom: 32px;
+        padding: 4px;
+      }
+      :host .title {
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid #000;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 16px;
+        padding: 4px;
+      }
+      :host .buttons {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid #000;
+        padding: 4px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 24px;
+        text-align: center;
+      }
+    </style>
+    <div class="container">
+      <div class="title">{{title}}</div>
+      <div class="buttons">
+        <content select=".options"></content>
+      </div>
+      <div class="content">
+        <content select="*"></content>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer('inf-dialog', {
+      ready: function() {
+        this.addEventListener('click', function() {
+          this.hide();
+        });
+        this.shadowRoot.querySelector('.container').addEventListener('click', function(e) {
+          e.stopPropagation();
+          return false;
+        });
+      },
+      show: function() {
+        this.classList.add('opened');
+      },
+      hide: function() {
+        this.classList.remove('opened');
+      }
+    });
+  </script>
+</polymer-element>

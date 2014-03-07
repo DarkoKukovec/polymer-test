@@ -1,0 +1,38 @@
+<link rel="import" href="../vendor/polymer.html">
+
+<polymer-element name="inf-button" attributes="text">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        font-family: Arial, serif;
+        color: #000;
+      }
+      :host .outer {
+        border: 1px solid #000;
+        border-radius: 4px;
+      }
+      :host .inner {
+        padding: 2px 4px;
+      }
+      :host.pressed .outer {
+        background-color: #aaa;
+      }
+    </style>
+    <div class="outer">
+      <div class="inner">
+        <content></content>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer('inf-button', {
+      ready: function() {
+        this.addEventListener('click', function(e) {
+          // The idea is to use pointerevents here, add pressed state and only expose one active event to the outside
+          this.fire('activated', e);
+        });
+      }
+    });
+  </script>
+</polymer-element>
